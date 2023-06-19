@@ -1,4 +1,4 @@
-import Carousel from 'react-bootstrap/Carousel';
+import React from 'react';
 import { Card, Text, Button } from 'dracula-ui';
 
 
