@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "a9bec1a4-e2a6-4b56-8a95-71c167487c17",
+		"name": "LectureDates",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9483324"
+	},
+	"item": [
+		{
+			"name": "LectureDates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/lecturedates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"lecturedates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LectureDate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/lecturedates/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"lecturedates",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LectureDate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"startDate\": \"2021-12-03T10:15:30\",\r\n    \"endDate\": \"2022-12-03T10:15:30\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/lecturedates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"lecturedates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LectureDate",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 3,\r\n    \"startDate\": \"2010-12-03T10:15:30\",\r\n    \"endDate\": \"2011-12-03T10:15:30\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/lecturedates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"lecturedates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LectureDate",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/lecturedates/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"lecturedates",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

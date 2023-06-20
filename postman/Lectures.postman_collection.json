@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "94630a6b-1602-4589-8119-de4027277571",
+		"name": "Lectures",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9483324"
+	},
+	"item": [
+		{
+			"name": "Lectures",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/lectures",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"lectures"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lecture",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/lectures/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"lectures",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lecture",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"lectureName\": \"Lecture 11\",\r\n    \"modulName\": \"Module 11\",\r\n    \"duration\": 110\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/lectures",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"lectures"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lecture",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"lectureName\": \"Lecture 1\",\r\n    \"modulName\": \"Module 1\",\r\n    \"duration\": 120\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/lectures/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"lectures",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lecture",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/lectures/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"lectures",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
