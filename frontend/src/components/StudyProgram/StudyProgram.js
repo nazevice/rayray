@@ -1,19 +1,94 @@
-import React from 'react';
-import { Box, Input, Text } from 'dracula-ui';
+import React, { useEffect, useState } from 'react';
+import StudyProgramCard from '../ItemCard/StudyProgramCard';
+import { Box, Button, Grid, Modal, TextField } from '@mui/material';
 
 const StudyProgram = () => {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:9090/studyprograms');
+                if (!response.ok) {
+                    throw new Error('Request failed');
+                }
+                const jsonData = await response.json();
+                setData(jsonData);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
     return (
-        <Box color="" width='md'>
-            <Text color="black" weight="bold">Name:</Text>
-            <Input placeholder="Input"/>
-            <Text color="black" weight="bold">Kürzel:</Text>
-            <Input placeholder="Input" />
-            <Text color="black" weight="bold">Studiengang:</Text>
-            <Input placeholder="Input" />
-            <Text color="black" weight="bold">Lehrveranstaltung:</Text>
-            <Input placeholder="Input" />
-            <Text color="black" weight="bold">Dozent:</Text>
-            <Input placeholder="Input" />       
+        <Box fill padding={2}>
+            <Modal open={open} onClose={handleClose} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Box height="auto" width="50%" bgcolor="white" padding={2} m={2}>
+                    <TextField
+                        fullWidth
+                        required
+                        id="name"
+                        label="Name"
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        required
+                        id="shortName"
+                        label="Kürzel"
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        id="outlined-required"
+                        label="Studiengang"
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        id="outlined-required"
+                        label="Lehrveranstaltung"
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        id="outlined-required"
+                        label="Dozent"
+                        margin="normal"
+                    />
+                    <Button>Ok</Button>
+                </Box>
+            </Modal>
+            {data && (
+                <Grid container spacing={2}>
+                    {data.map(item => (
+                        <Grid item xs={4}>
+                            <StudyProgramCard
+                                key={item.id}
+                                shortName={item.shortName}
+                                programName={item.name}
+                                handleOpen={handleOpen}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            )}
         </Box>
     )
 }

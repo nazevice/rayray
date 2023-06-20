@@ -4,7 +4,7 @@ import { Box, Card, Text, Button } from 'dracula-ui';
 
 const ContentCarouselItem = ({path, title, text, btnText}) => {
     return (
-        <Card width="xs" display="inline-block" rounded="lg">
+        <Card width="full" display="inline-block" rounded="lg">
             <img src={window.location.origin +"/banner.webp"} height="200px" />
             <Box>
                 <Text fontSize="18px" fontWeight="bold" mt="16px">Class B</Text>
