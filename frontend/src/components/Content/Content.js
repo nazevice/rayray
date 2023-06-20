@@ -9,7 +9,7 @@ const Content = () => {
             <Grid item xs={6}>
                 <Box marginTop="2em" padding="5em">
                     <Box width="100%">
-                        <Typography variant="h2">Simples Dashboard</Typography>
+                        <Typography variant="h2" fontFamily="Poppins" fontWeight="600">Simples Dashboard</Typography>
                         <Typography>
                             Als Dozent können sie sich die Details über die angebotenen
                             Vorlesungen einsehen und geplanten Vorlesungen einsehen.
@@ -27,6 +27,11 @@ const Content = () => {
                         autoplay
                     />
                 </Box>
+            </Grid>
+            <Grid item xs={12}>
+            <Box width="100%">
+                <ContentCarousel />
+            </Box>
             </Grid>
         </Grid>
     );
