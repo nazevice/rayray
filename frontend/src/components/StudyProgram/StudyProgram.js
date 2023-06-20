@@ -4,15 +4,15 @@ import { Box, Input, Text } from 'dracula-ui';
 const StudyProgram = () => {
     return (
         <Box color="" width='md'>
-            <Text color="black">Name:</Text>
+            <Text color="black" weight="bold">Name:</Text>
             <Input placeholder="Input"/>
-            <Text color="black">Kürzel:</Text>
+            <Text color="black" weight="bold">Kürzel:</Text>
             <Input placeholder="Input" />
-            <Text color="black">Studiengang:</Text>
+            <Text color="black" weight="bold">Studiengang:</Text>
             <Input placeholder="Input" />
-            <Text color="black">Lehrveranstaltung:</Text>
+            <Text color="black" weight="bold">Lehrveranstaltung:</Text>
             <Input placeholder="Input" />
-            <Text color="black">Dozent:</Text>
+            <Text color="black" weight="bold">Dozent:</Text>
             <Input placeholder="Input" />       
         </Box>
     )

@@ -5,13 +5,13 @@ const Semester = () => {
 
     return (
         <Box color ="" width="md">
-            <Text color="black">Beginn des Semesters:</Text>
+            <Text color="black" weight="bold">Beginn des Semesters:</Text>
             <Input placeholder="Date" type="date" />
-            <Text color="black">Ende des Semesters:</Text>
+            <Text color="black" weight="bold">Ende des Semesters:</Text>
             <Input placeholder="Date" type="date" />
-            <Text color="black">Nummer des Semesters:</Text>
+            <Text color="black" weight="bold">Nummer des Semesters:</Text>
             <Input placeholder="Input" type="number"/>
-            <Text color="black">Name der Semesters:</Text>
+            <Text color="black" weight="bold"> Name der Semesters:</Text>
             <Input placeholder="Input" />
         </Box>
 

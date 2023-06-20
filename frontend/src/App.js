@@ -6,7 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 import StudyProgram from './components/StudyProgram/StudyProgram';
 import Lecture from './components/Lecture/Lecture';
 import Semester from './components/Semester/Semester';
-import Dozent from './components/Dozent/dozent';
+import Dozent from './components/Dozent/Dozent';
 import StudyClass from './components/StudyClass/StudyClass';
 import Footer from './components/Footer/Footer';
 import 'dracula-ui/styles/dracula-ui.css';

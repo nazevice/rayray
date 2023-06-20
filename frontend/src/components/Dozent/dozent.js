@@ -5,11 +5,11 @@ const Dozent = () => {
 
     return (
         <Box color ="" width="md">
-            <Text color="black">Vorname:</Text>
+            <Text color="black" weight="bold">Vorname:</Text>
             <Input placeholder="Input" />
-            <Text color="black">Nachname:</Text>
+            <Text color="black" weight="bold">Nachname:</Text>
             <Input placeholder="Input" />
-            <Text color="black">E-Mail:</Text>
+            <Text color="black" weight="bold">E-Mail:</Text>
             <Input placeholder="Input" type="email" />
         </Box>
 

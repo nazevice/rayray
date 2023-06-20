@@ -5,15 +5,15 @@ const Lecture = () => {
 
     return (
         <Box color ="" width="md">
-            <Text color="black">Name der Lehrveranstaltung:</Text>
+            <Text color="black" weight="bold">Name der Lehrveranstaltung:</Text>
             <Input placeholder="Input" />
-            <Text color="black">Name des Moduls:</Text>
+            <Text color="black" weight="bold">Name des Moduls:</Text>
             <Input placeholder="Input" />
-            <Text color="black">Vorlesungszeit:</Text>
+            <Text color="black" weight="bold">Vorlesungszeit:</Text>
             <Input placeholder="Input" type="time" />
-            <Text color="black">Datum der Vorlesung:</Text>
+            <Text color="black" weight="bold">Datum der Vorlesung:</Text>
             <Input placeholder="Date" type="date" />
-            <Text color="black">Studiengang:</Text>
+            <Text color="black" weight="bold">Studiengang:</Text>
             <Input placeholder="Input"/>
         </Box>
 
