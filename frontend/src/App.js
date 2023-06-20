@@ -5,6 +5,9 @@ import Content from './components/Content/Content';
 import Dashboard from './components/Dashboard/Dashboard'
 import StudyProgram from './components/StudyProgram/StudyProgram';
 import Lecture from './components/Lecture/Lecture';
+import Semester from './components/Semester/Semester';
+import Dozent from './components/Dozent/dozent';
+import StudyClass from './components/StudyClass/StudyClass';
 import Footer from './components/Footer/Footer';
 import 'dracula-ui/styles/dracula-ui.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,6 +22,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/studienprogramm" element={<StudyProgram />} />
           <Route path="/vorlesung" element={<Lecture/>} />
+          <Route path="/Semester" element={<Semester/>} />
+          <Route path="/dozent" element={<Dozent/>} />
+          <Route path="/studienklasse" element={<StudyClass/>} />
         </Routes>
         
         <Footer />
