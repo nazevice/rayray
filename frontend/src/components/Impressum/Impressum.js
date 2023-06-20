@@ -6,7 +6,7 @@ const Impressum = () => {
             <h1><strong>Impressum</strong></h1>
             <p><strong>LectureMaster</strong></p>
             <p>Eine Unternehmung der LectureMaster GmbH</p>
-            <p>Kemperplatz 1 | 12345 Berlin | DE<br />Telefon: +49 176 44 55 66 77<br />E-Mail: <a href="mailto:kontakt@lecturemaster.com">kontakt@lecturemaster.com</a><br />Web: www.lecturemaster.com</p>
+            <p>Kemperplatz 1 | 12345 Berlin | DE<br />Telefon: +49 176 44 55 66 77<br />E-Mail: <a href="mailto:kontakt@lecturemaster.com">kontakt@lecturemaster.com</a><br />Web: <a href="www.lecturemaster.com">www.lecturemaster.com</a></p>
             <p>HRB 13147 CB Amtsgericht Cottbus<br />UStID: DE 314164707&nbsp;<br />GF: Rainer Zufall</p>
             <section>
                 <h4>Herausgeber, inhaltliche Verantwortlichkeit und rechtlicher Hinweise nach &sect;5-&sect;6 TMG (Telemediengesetz):</h4>
