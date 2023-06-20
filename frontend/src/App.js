@@ -8,6 +8,7 @@ import Lecture from './components/Lecture/Lecture';
 import Semester from './components/Semester/Semester';
 import Dozent from './components/Dozent/Dozent';
 import StudyClass from './components/StudyClass/StudyClass';
+import Impressum from './components/Impressum/Impressum';
 import Footer from './components/Footer/Footer';
 import 'dracula-ui/styles/dracula-ui.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/Semester" element={<Semester/>} />
           <Route path="/dozent" element={<Dozent/>} />
           <Route path="/studienklasse" element={<StudyClass/>} />
+          <Route path="/impressum" element={<Impressum/>} />
         </Routes>
         
         <Footer />
