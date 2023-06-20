@@ -1,13 +1,34 @@
 import React from 'react';
-import { Box } from 'dracula-ui';
 import ContentCarousel from '../Carousel/ContentCarousel';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 const Content = () => {
-    return(
-        <Box display="flex" height='2xl' color='black'>
-             <ContentCarousel />
-             <ContentCarousel />
-        </Box>
-    )
-}
+    return (
+        <Grid container spacing={2}>
+            <Grid item xs={6}>
+                <Box marginTop="2em" padding="5em">
+                    <Box width="100%">
+                        <Typography variant="h2">Simples Dashboard</Typography>
+                        <Typography>
+                            Als Dozent können sie sich die Details über die angebotenen
+                            Vorlesungen einsehen und geplanten Vorlesungen einsehen.
+                        </Typography>
+                    </Box>
+                    <Button variant="contained">Jetzt beginnen</Button>
+                </Box>
+            </Grid>
+            <Grid item xs={6}>
+                <Box width="100%">
+                    <Player
+                        src="https://assets8.lottiefiles.com/packages/lf20_w4kou3mriQ.json"
+                        className="player"
+                        loop
+                        autoplay
+                    />
+                </Box>
+            </Grid>
+        </Grid>
+    );
+};
 export default Content;

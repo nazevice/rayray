@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box } from 'dracula-ui';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { Box } from '@mui/material';
 
 const Header = () => {
   return (
-    <Box color="animated" height='xxxs' width='full'>
+    <Box bgcolor="primary.main">
       <Navbar>
         <Navbar.Brand as={Link} to="/">LectureMaster</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
