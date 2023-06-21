@@ -1,20 +1,34 @@
-import { Box, Modal } from "@mui/material"
+import { Box, Button, Modal } from "@mui/material"
 
-const FormModal = ({open, handleClose, handleSubmit, children}) => {
-    return(
-            <Modal open={open} onClose={handleClose} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Box 
-                    height="auto" 
-                    width="50%" 
-                    bgcolor="white" 
-                    padding={2} 
-                    m={2}
-                    component="form" 
-                    onSubmit={handleSubmit}
+const FormModal = ({ open, handleClose, handleSubmit, children }) => {
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        handleClose();
+        handleSubmit(event);
+    };
+    return (
+        <Modal open={open} onClose={handleClose} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Box
+                height="auto"
+                width="50%"
+                bgcolor="white"
+                padding={2}
+                m={2}
+                component="form"
+                onSubmit={handleFormSubmit}
+            >
+                {children}
+
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    fullWidth
                 >
-                    {children}
-                </Box>
-            </Modal>
+                    Submit
+                </Button>
+            </Box>
+        </Modal>
     )
 }
 export default FormModal;

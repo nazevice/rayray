@@ -12,26 +12,28 @@ import Impressum from './components/Impressum/Impressum';
 import Footer from './components/Footer/Footer';
 import 'dracula-ui/styles/dracula-ui.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Box } from '@mui/material';
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Header />
-        <Routes>
-          <Route exact path="/" element={<Content />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/studienprogramm" element={<StudyProgram />} />
-          <Route path="/vorlesung" element={<Lecture/>} />
-          <Route path="/Semester" element={<Semester/>} />
-          <Route path="/dozent" element={<Dozent/>} />
-          <Route path="/studienklasse" element={<StudyClass/>} />
-          <Route path="/impressum" element={<Impressum/>} />
-        </Routes>
-        
+        <Box flex="1">
+          <Routes>
+            <Route exact path="/" element={<Content />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/studienprogramm" element={<StudyProgram />} />
+            <Route path="/vorlesung" element={<Lecture />} />
+            <Route path="/Semester" element={<Semester />} />
+            <Route path="/dozent" element={<Dozent />} />
+            <Route path="/studienklasse" element={<StudyClass />} />
+            <Route path="/impressum" element={<Impressum />} />
+          </Routes>
+        </Box>
         <Footer />
       </div>
     </Router>
-  );
+  )
 }
 export default App;

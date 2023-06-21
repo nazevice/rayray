@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Box, TextField, Button, Grid } from '@mui/material';
+import { Box, TextField, Grid, Typography } from '@mui/material';
 import FormModal from "../FormModal/FormModal";
-import StudyProgramCard from "../ItemCard/StudyProgramCard";
 import LecturersCard from "../ItemCard/LecturersCard";
 
 const Dozent = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -40,8 +39,6 @@ const Dozent = () => {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-
     // Extract the form data
     const data = new FormData(event.target);
 
@@ -77,33 +74,42 @@ const Dozent = () => {
   return (
     <Box fill padding={2}>
       <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
-      <TextField label="Vorname" name="firstName" fullWidth />
-      <TextField label="Nachname" name="lastName" fullWidth />
-      <TextField label="E-Mail" name="email" type="email" fullWidth />
-      <Button type="submit" variant="contained" color="primary">Submit</Button>
-    </FormModal>
-    {data && (
-                <Grid container spacing={2}>
-                    {data.map(item => (
-                        <Grid item xs={4}>
-                          <LecturersCard 
-                            key={item.id}
-                            firstName={item.firstName}
-                            lastName={item.lastName}
-                            mail={item.email}
-                          />
-                            <StudyProgramCard
-                                key={item.id}
-                                shortName={item.shortName}
-                                programName={item.name}
-                                handleOpen={handleOpen}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
-            )}
-        </Box>
-    )
+        <Typography>Dozent hinzufügen</Typography>
+        <TextField 
+          label="Vorname" 
+          name="firstName" 
+          margin="normal"
+          fullWidth 
+          />
+        <TextField 
+          label="Nachname" 
+          name="lastName" 
+          margin="normal"
+          fullWidth 
+        />
+        <TextField 
+          label="E-Mail" 
+          name="email" 
+          type="email"
+          margin="normal"
+          fullWidth 
+        />
+      </FormModal>
+      {data && (
+        <Grid container spacing={2}>
+          {data.map(item => (
+            <Grid item xs={4}>
+              <LecturersCard
+                key={item.id}
+                lecturer={item}
+                handleOpen={handleOpen}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      )}
+    </Box>
+  )
 }
 
 export default Dozent;

@@ -4,13 +4,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 
-const LecturersCard = ({lecturer, handleOpen}) => {
+const LectureCard = ({lecture, handleOpen}) => {
     return(
         <Card>
             <CardContent>
                 <Box>
-                    <Typography variant="h5">{lecturer.firstName + " " + lecturer.lastName}</Typography>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>{lecturer.mail}</Typography>
+                    <Typography variant="h5">{lecture.lectureName}</Typography>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>{lecture.moduleName}</Typography>
                 </Box>
                 <Typography>Vorlesungen</Typography>
                 <Box>
@@ -31,4 +31,4 @@ const LecturersCard = ({lecturer, handleOpen}) => {
         </Card>
     );
 }
-export default LecturersCard;
+export default LectureCard;

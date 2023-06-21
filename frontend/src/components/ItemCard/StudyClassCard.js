@@ -4,13 +4,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 
-const StudyClassCard = () => {
+const StudyClassCard = ({item}) => {
     return(
         <Card>
             <CardContent>
                 <Box>
-                    <Typography variant="h5">WI</Typography>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>Wirtschaftsinformatik</Typography>
+                    <Typography variant="h5">{item.name}</Typography>
                 </Box>
                 <Typography>Vorlesungen</Typography>
                 <Box>
