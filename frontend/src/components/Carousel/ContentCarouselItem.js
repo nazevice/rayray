@@ -2,15 +2,13 @@ import React from 'react';
 import { Box, Card, Text, Button } from 'dracula-ui';
 
 
-const ContentCarouselItem = ({path, title, text, btnText}) => {
+const ContentCarouselItem = ({title, children}) => {
     return (
         <Card width="full" display="inline-block" rounded="lg">
-            <img src={window.location.origin +"/banner.webp"} height="200px" />
             <Box>
-                <Text fontSize="18px" fontWeight="bold" mt="16px">Class B</Text>
+                <Text fontSize="18px" fontWeight="bold" mt="16px">{title}</Text>
             </Box>
-            <Text mt="8px">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
-            <Button mt="16px" variant="primary">Read More</Button>
+            <Text mt="8px">{children}</Text>
         </Card>
     )
 }

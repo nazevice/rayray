@@ -6,7 +6,14 @@ const ContentCarousel = () => {
     return (
         <Carousel>
            <Carousel.Item>
-                <ContentCarouselItem />
+                <ContentCarouselItem title="test"> 
+                ABC
+                </ContentCarouselItem>
+           </Carousel.Item>
+           <Carousel.Item>
+           <ContentCarouselItem title="test"> 
+                DEF
+                </ContentCarouselItem>
            </Carousel.Item>
         </Carousel>
     )
