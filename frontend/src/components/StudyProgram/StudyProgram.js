@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import StudyProgramCard from '../ItemCard/StudyProgramCard';
-import { Box, Button, Grid, Modal, TextField } from '@mui/material';
+import { Box, Grid, TextField, Button } from '@mui/material';
 import FormModal from '../FormModal/FormModal';
 
 const StudyProgram = () => {
@@ -30,6 +30,11 @@ const StudyProgram = () => {
         fetchData();
     }, []);
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Implement form submission logic here
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -39,43 +44,13 @@ const StudyProgram = () => {
     }
     return (
         <Box fill padding={2}>
-            <Modal open={open} onClose={handleClose} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Box height="auto" width="50%" bgcolor="white" padding={2} m={2}>
-                    <TextField
-                        fullWidth
-                        required
-                        id="name"
-                        label="Name"
-                        margin="normal"
-                    />
-                    <TextField
-                        fullWidth
-                        required
-                        id="shortName"
-                        label="Kürzel"
-                        margin="normal"
-                    />
-                    <TextField
-                        fullWidth
-                        id="outlined-required"
-                        label="Studiengang"
-                        margin="normal"
-                    />
-                    <TextField
-                        fullWidth
-                        id="outlined-required"
-                        label="Lehrveranstaltung"
-                        margin="normal"
-                    />
-                    <TextField
-                        fullWidth
-                        id="outlined-required"
-                        label="Dozent"
-                        margin="normal"
-                    />
-                    <Button>Ok</Button>
-                </Box>
-            </Modal>
+            <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
+                <TextField required id="name" label="Name" name="name" margin="normal" fullWidth />
+                <TextField required id="shortName" label="Kürzel" name="shortName" margin="normal" fullWidth />
+                <TextField id="course" label="Studiengang" name="course" margin="normal" fullWidth />
+                <TextField id="lecture" label="Lehrveranstaltung" name="lecture" margin="normal" fullWidth />
+                <TextField id="lecturer" label="Dozent" name="lecturer" margin="normal" fullWidth />
+            </FormModal>
             {data && (
                 <Grid container spacing={2}>
                     {data.map(item => (

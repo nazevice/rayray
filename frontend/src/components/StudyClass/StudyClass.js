@@ -1,4 +1,4 @@
-import { Box, Grid, TextField } from "@mui/material";
+import { Box, Grid, TextField, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FormModal from "../FormModal/FormModal";
 import LecturersCard from "../ItemCard/LecturersCard";
@@ -39,12 +39,59 @@ const StudyClass = () => {
         return <div>Error: {error}</div>;
     }
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Extract the form data
+        const data = new FormData(event.target);
+        // Convert the form data to an object
+        const value = Object.fromEntries(data.entries());
+        // Prepare the payload
+        const payload = {
+            className: value.className,
+            startDate: value.startDate,
+            endDate: value.endDate,
+        };
+        // Send the form data to your backend server
+        fetch('http://localhost:9090/studyclasses', {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            if (response.ok) {
+                // Handle successful submission
+                console.log('Data submitted successfully');
+            } else {
+                // Handle errors
+                console.error('Error submitting data:', response);
+            }
+        });
+    };
+
     return (
         <Box fill padding={2}>
-            <FormModal open={open} handleClose={handleClose}>
-                <TextField label="Name Studienklasse" name="firstName" fullWidth />
-                <TextField label="Beginn Studenklasse" name="lastName" fullWidth />
-                <TextField label="Ende Studenklasse" name="email" type="email" fullWidth />
+            <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            label="Name der Studienklasse"
+            name="className"
+            margin="normal"
+            />
+          <TextField
+            fullWidth
+            label="Beginn der Studienklasse"
+            name="startDate"
+            type="date"
+            margin="normal"
+            />
+          <TextField
+            fullWidth
+            label="Ende der Studienklasse"
+            name="endDate"
+            type="date"
+            margin="normal"
+          />
             </FormModal>
             {data && (
         <Grid container spacing={2}>
@@ -53,6 +100,7 @@ const StudyClass = () => {
             <StudyClassCard 
                 key={item.id}
                 item={item}
+                handleOpen={handleOpen}
             />
             </Grid>
           ))}
