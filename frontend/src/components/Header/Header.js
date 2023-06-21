@@ -6,7 +6,7 @@ import { Box } from '@mui/material';
 
 const Header = () => {
   return (
-    <Box bgcolor="primary.main">
+    <Box bgcolor="primary.main" sx={{ position: 'sticky', top: 0, zIndex: 100 }}>
       <Navbar>
         <Navbar.Brand as={Link} to="/">LectureMaster</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

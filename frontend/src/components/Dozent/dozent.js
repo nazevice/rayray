@@ -1,34 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { Box, TextField, Grid, Typography } from '@mui/material';
+import { Box, TextField, Grid, Typography, Autocomplete } from '@mui/material';
 import FormModal from "../FormModal/FormModal";
 import LecturersCard from "../ItemCard/LecturersCard";
+import ContentContainer from "../ContentContainer/ContentContainer";
 
 const Dozent = () => {
-  const [data, setData] = useState(null);
+  const [lecturers, setLecturers] = useState([]);
+  const [lectures, setLectures] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [open, setOpen] = useState(false)
+  const [title, setTitle] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [mail, setMail] = useState('')
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:9090/lecturers');
-        if (!response.ok) {
-          throw new Error('Request failed');
-        }
-        const jsonData = await response.json();
-        setData(jsonData);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    fetchData('http://localhost:9090/lecturers', setLecturers);
+    fetchData('http://localhost:9090/lectures', setLectures)
   }, []);
+
+  const fetchData = async (url, setData) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+      const jsonData = await response.json();
+      setData(jsonData);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -37,6 +44,26 @@ const Dozent = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  const handleOpen = (lecturer) => {
+    console.log(lecturer)
+    if(lecturer!=null) {
+      setFirstName(lecturer.firstName);
+      setLastName(lecturer.lastName);
+      setMail(lecturer.email);
+      setTitle("Dozent ändern")
+    } else {
+      setFirstName('');
+      setLastName('');
+      setMail('');
+      setTitle("Dozent hinzufügen")
+    }
+    setOpen(true)
+  }
+
+  const handleSelectionChange = (event, value) => {
+    setSelectedOptions(value);
+  };
 
   const handleSubmit = (event) => {
     // Extract the form data
@@ -72,19 +99,23 @@ const Dozent = () => {
 
 
   return (
-    <Box fill padding={2}>
+    <ContentContainer handleOpen={handleOpen}>
       <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
-        <Typography>Dozent hinzufügen</Typography>
+        <Typography>{title}</Typography>
         <TextField 
           label="Vorname" 
           name="firstName" 
           margin="normal"
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)}
           fullWidth 
           />
         <TextField 
           label="Nachname" 
           name="lastName" 
           margin="normal"
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
           fullWidth 
         />
         <TextField 
@@ -92,12 +123,24 @@ const Dozent = () => {
           name="email" 
           type="email"
           margin="normal"
+          value={mail}
+          onChange={(event) => setMail(event.target.value)}
           fullWidth 
         />
+        <Autocomplete
+      multiple
+      options={lectures} // Replace with your options array
+      getOptionLabel={(lectures) => lectures.lectureName} // Replace with the label property of your option object
+      value={selectedOptions}
+      onChange={handleSelectionChange}
+      renderInput={(params) => (
+        <TextField {...params} label="Lehrveranstaltung" margin="normal"/>
+      )}
+    />
       </FormModal>
-      {data && (
+      {lecturers.length !== 0 && (
         <Grid container spacing={2}>
-          {data.map(item => (
+          {lecturers.map(item => (
             <Grid item xs={4}>
               <LecturersCard
                 key={item.id}
@@ -108,7 +151,7 @@ const Dozent = () => {
           ))}
         </Grid>
       )}
-    </Box>
+    </ContentContainer>
   )
 }
 

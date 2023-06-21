@@ -17,9 +17,9 @@ import { Box } from '@mui/material';
 function App() {
   return (
     <Router>
-      <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <Header />
-        <Box flex="1">
+      <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Header />
+          <Box flex="1">
           <Routes>
             <Route exact path="/" element={<Content />} />
             <Route path="/dashboard" element={<Dashboard />} />
@@ -30,9 +30,9 @@ function App() {
             <Route path="/studienklasse" element={<StudyClass />} />
             <Route path="/impressum" element={<Impressum />} />
           </Routes>
-        </Box>
+          </Box>
         <Footer />
-      </div>
+      </Box>
     </Router>
   )
 }
