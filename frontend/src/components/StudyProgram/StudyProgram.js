@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StudyProgramCard from '../ItemCard/StudyProgramCard';
 import { Box, Button, Grid, Modal, TextField } from '@mui/material';
+import FormModal from '../FormModal/FormModal';
 
 const StudyProgram = () => {
     const [data, setData] = useState(null);
@@ -38,6 +39,7 @@ const StudyProgram = () => {
     }
     return (
         <Box fill padding={2}>
+<<<<<<< HEAD
             <Modal open={open} onClose={handleClose} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Box height="auto" width="50%" bgcolor="white" padding={2} m={2}>
                     <TextField
@@ -75,6 +77,43 @@ const StudyProgram = () => {
                     <Button>Ok</Button>
                 </Box>
             </Modal>
+=======
+            <FormModal open={open} handleClose={handleClose}>
+                <TextField
+                    fullWidth
+                    required
+                    id="name"
+                    label="Name"
+                    margin="normal"
+                />
+                <TextField
+                    fullWidth
+                    required
+                    id="shortName"
+                    label="Kürzel"
+                    margin="normal"
+                />
+                <TextField
+                    fullWidth
+                    id="outlined-required"
+                    label="Studiengang"
+                    margin="normal"
+                />
+                <TextField
+                    fullWidth
+                    id="outlined-required"
+                    label="Lehrveranstaltung"
+                    margin="normal"
+                />
+                <TextField
+                    fullWidth
+                    id="outlined-required"
+                    label="Dozent"
+                    margin="normal"
+                />
+                <Button>Ok</Button>
+            </FormModal>
+>>>>>>> d472d71c67cebdf1a112df8eddddd5672c91ba8b
             {data && (
                 <Grid container spacing={2}>
                     {data.map(item => (
