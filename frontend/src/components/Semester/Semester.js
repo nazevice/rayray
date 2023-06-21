@@ -69,7 +69,6 @@ const Semester = () => {
                     label="Name der Semesters:"
                     margin="normal"
                 />
-                <Button fullWidth>Hinzufügen</Button>
             </FormModal>
             {data && (
                 <Grid container spacing={2}>

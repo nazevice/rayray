@@ -38,6 +38,7 @@ const Lecture = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Extract the form data
@@ -47,9 +48,10 @@ const Lecture = () => {
     // Prepare the payload
     const payload = {
       lectureName: value.lectureName,
-      modulName: value.modulName,
+      moduleName: value.moduleName,
       duration: value.duration,
-      // add any other fields as needed
+      lectureDate: value.lectureDate,
+      course: value.course,
     };
     // Send the form data to your backend server
     fetch('http://localhost:9090/lectures', {
@@ -72,12 +74,38 @@ const Lecture = () => {
   return (
     <Box fill padding={2}>
       <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
-        <TextField label="Name der Lehrveranstaltung" name="lectureName" fullWidth />
-        <TextField label="Name des Moduls" name="modulName" fullWidth />
-        <TextField label="Vorlesungszeit" name="duration" type="time" fullWidth />
-        <TextField label="Datum der Vorlesung" name="lectureDate" type="date" fullWidth />
-        <TextField label="Studiengang" name="course" fullWidth />
-        <Button type="submit" variant="contained" color="primary">Submit</Button>
+        <TextField
+          fullWidth
+          label="Name der Lehrveranstaltung"
+          name="lectureName"
+          margin="normal"
+        />
+        <TextField
+          fullWidth
+          label="Name des Moduls"
+          name="moduleName"
+          margin="normal"
+        />
+        <TextField
+          fullWidth
+          label="Vorlesungszeit"
+          name="duration"
+          type="time"
+          margin="normal"
+          />
+        <TextField
+          fullWidth
+          label="Datum der Vorlesung"
+          name="lectureDate"
+          type="date"
+          margin="normal"
+          />
+        <TextField
+          fullWidth
+          label="Studiengang"
+          name="course"
+          margin="normal"
+          />
       </FormModal>
       {data && (
         <Grid container spacing={2}>
@@ -86,6 +114,7 @@ const Lecture = () => {
               <LectureCard
                 key={item.id}
                 lecture={item}
+                handleOpen={handleOpen}
               />
             </Grid>
           ))}

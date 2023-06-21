@@ -4,8 +4,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 
-const StudyClassCard = ({item}) => {
-    return(
+const StudyClassCard = ({item, handleOpen}) => {
+  return(
         <Card>
             <CardContent>
                 <Box>
@@ -22,7 +22,7 @@ const StudyClassCard = ({item}) => {
                 <IconButton aria-label="add to favorites">
           <DeleteIcon />
         </IconButton>
-        <IconButton aria-label="share">
+        <IconButton aria-label="share" onClick={handleOpen}>
           <EditIcon />
         </IconButton>
                 </Box>
