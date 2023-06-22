@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, TextField, Grid, Typography, Autocomplete } from '@mui/material';
+import { Box, TextField, Grid, Typography, Autocomplete, Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import FormModal from "../FormModal/FormModal";
 import LecturersCard from "../ItemCard/LecturersCard";
 import ContentContainer from "../ContentContainer/ContentContainer";
+
+
 
 const Dozent = () => {
   const [lecturerId, setLecturerId] = useState('');
@@ -18,10 +21,11 @@ const Dozent = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const handleClose = () => setOpen(false);
 
+  const [refreshKey, setRefreshKey] = useState(0);
   useEffect(() => {
     fetchData('http://localhost:9090/lecturers', setLecturers);
     fetchData('http://localhost:9090/lectures', setLectures)
-  }, []);
+  }, [refreshKey]);
 
   const fetchData = async (url, setData) => {
     try {
@@ -70,31 +74,31 @@ const Dozent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     // Extract the form data
     const data = new FormData(event.target);
-  
+
     // Convert the form data to an object
     const value = Object.fromEntries(data.entries());
-  
+
     // Start creating the payload with the form data
     const payload = {
       firstName: value.firstName,
       lastName: value.lastName,
       email: value.email,
     };
-  
+
     // If this is an update operation, include the id and the selected lectures in the payload
     if (title === "Dozent ändern") {
       payload.id = lecturerId; // Use lecturerId here
       const selectedLectures = selectedOptions.map((lecture) => ({ id: lecture.id }));
       payload.lectures = selectedLectures;
     }
-  
+
     // Determine the appropriate method and URL for the operation
     const method = (title === "Dozent ändern") ? 'PUT' : 'POST';
     const url = 'http://localhost:9090/lecturers';
-  
+
     // Send the form data to our backend server
     fetch(url, {
       method: method,
@@ -106,6 +110,7 @@ const Dozent = () => {
       if (response.ok) {
         // Handle successful submission
         console.log('Data submitted successfully');
+        setRefreshKey(oldKey => oldKey + 1); // trigger a refetch
       } else {
         // Handle errors
         console.error('Error submitting data:', response);
@@ -113,9 +118,28 @@ const Dozent = () => {
     });
   };
 
-
-
-
+  const handleDelete = (id) => {
+    // Optimistically remove the lecturer from the local state
+    setLecturers(prevLecturers => prevLecturers.filter(lecturer => lecturer.id !== id));
+    
+    fetch(`http://localhost:9090/lecturers/${id}`, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.log('Error deleting the lecturer: ', error);
+        // If the delete operation failed, refetch the data
+        setRefreshKey(oldKey => oldKey + 1);
+      });
+  }
 
   return (
     <ContentContainer handleOpen={handleOpen}>
@@ -148,8 +172,8 @@ const Dozent = () => {
         />
         <Autocomplete
           multiple
-          options={lectures} // Replace with your options array
-          getOptionLabel={(lectures) => lectures.lectureName} // Replace with the label property of your option object
+          options={lectures}
+          getOptionLabel={(lectures) => lectures.lectureName}
           value={selectedOptions}
           onChange={handleSelectionChange}
           renderInput={(params) => (
@@ -165,6 +189,7 @@ const Dozent = () => {
                 key={item.id}
                 lecturer={item}
                 handleOpen={handleOpen}
+                handleDelete={handleDelete}  // add handleDelete prop here
               />
             </Grid>
           ))}
