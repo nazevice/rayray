@@ -74,12 +74,7 @@ const Semester = () => {
                 <Grid container spacing={2}>
                     {data.map(item => (
                         <Grid item xs={4}>
-                            <StudyProgramCard
-                                key={item.id}
-                                shortName={item.shortName}
-                                programName={item.name}
-                                handleOpen={handleOpen}
-                            />
+                            Test
                         </Grid>
                     ))}
                 </Grid>

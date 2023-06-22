@@ -4,13 +4,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 
-const StudyProgramCard = ({shortName, programName, handleOpen}) => {
+const StudyProgramCard = ({studyProgram, handleOpen}) => {
     return(
         <Card>
             <CardContent>
                 <Box>
-                    <Typography variant="h5">{shortName}</Typography>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>{programName}</Typography>
+                    <Typography variant="h5">{studyProgram.shortName}</Typography>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>{studyProgram.name}</Typography>
                 </Box>
                 <Typography>Vorlesungen</Typography>
                 <Box>
@@ -23,7 +23,7 @@ const StudyProgramCard = ({shortName, programName, handleOpen}) => {
                 <IconButton aria-label="add to favorites">
           <DeleteIcon />
         </IconButton>
-        <IconButton aria-label="share" onClick={handleOpen}>
+        <IconButton aria-label="share" onClick={() => handleOpen(studyProgram)}>
           <EditIcon />
         </IconButton>
                 </Box>

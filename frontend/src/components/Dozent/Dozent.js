@@ -90,8 +90,9 @@ const Dozent = () => {
     // If this is an update operation, include the id and the selected lectures in the payload
     if (title === "Dozent ändern") {
       payload.id = lecturerId; // Use lecturerId here
-      const selectedLectures = selectedOptions.map((lecture) => ({ id: lecture.id }));
-      payload.lectures = selectedLectures;
+      //const selectedLectures = selectedOptions.map((lecture) => ({ id: lecture.id }));
+      console.log(selectedOptions);
+      payload.lectures = selectedOptions;
     }
 
     // Determine the appropriate method and URL for the operation
@@ -181,7 +182,7 @@ const Dozent = () => {
         />
       </FormModal>
       {lecturers.length !== 0 && (
-        <Grid container spacing={2}>
+        <Grid container spacing={3} padding={0}>
           {lecturers.map(item => (
             <Grid item xs={4}>
               <LecturersCard

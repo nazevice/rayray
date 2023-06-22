@@ -22,7 +22,7 @@ function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Router>
-        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Box sx={{ backgroundColor: "#DDE6ED", display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Header />
           <Box flex="1">
           <Routes>

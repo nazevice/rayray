@@ -8,16 +8,14 @@ const ContentContainer = ({ children, handleOpen }) => {
     }
     path = capitalizeFirstChar(path);
     return (
-        <Box padding={2}>
+        <Box padding={3}>
             <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Typography>{path}</Typography>
                 <IconButton aria-label="share" onClick={() => handleOpen(null)}>
                     <AddCircleIcon />
                 </IconButton>
             </Box>
-            <Box
-                padding={2}
-            >
+            <Box>
                 {children}
             </Box>
         </Box>
