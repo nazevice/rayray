@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box } from '@mui/material'
-
+import { Box, Typography } from '@mui/material'
 
 
 
@@ -8,18 +7,24 @@ const Footer = () => {
     return (
 
 
-        <footer>
+        <footer style={{ marginTop: 'auto' }}>
 
             <Box
                 sx={{
-                    display:'grid',
-                    gridTemplateColumns: 'auto 1fr',
+                    display: 'grid',
+                    gridTemplateColumns: 'auto auto 1fr',
                     backgroundColor: 'primary.main',
-                    color:'white'
+                    color: 'white'
                 }}>
-                <a href="/impressum" style={{color:'white', margin:'0 15px'}}>Impressum</a>
-                <span style={{textAlignLast:'right', margin:'0 15px'}}>© 2023 LectureMaster.</span>
-                
+                <Typography variant="body1" component="a" href="/impressum" style={{ color: 'white', margin: '0 10px 0 20px' }}>
+                    Impressum
+                </Typography>
+                <Typography variant="body1" component="a" href="/datenschutz" style={{ color: 'white', margin: '0 20px' }}>
+                    Datenschutz
+                </Typography>
+
+                <span style={{ textAlignLast: 'right', margin: '0 25px' }}>© 2023 LectureMaster</span>
+
             </Box>
         </footer>
 
