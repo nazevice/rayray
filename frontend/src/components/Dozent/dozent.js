@@ -5,6 +5,7 @@ import LecturersCard from "../ItemCard/LecturersCard";
 import ContentContainer from "../ContentContainer/ContentContainer";
 
 const Dozent = () => {
+  const [lecturerId, setLecturerId] = useState('');
   const [lecturers, setLecturers] = useState([]);
   const [lectures, setLectures] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,20 +47,22 @@ const Dozent = () => {
   }
 
   const handleOpen = (lecturer) => {
-    console.log(lecturer)
-    if(lecturer!=null) {
+    if (lecturer != null) {
+      setLecturerId(lecturer.id); // set the lecturerId state here
       setFirstName(lecturer.firstName);
       setLastName(lecturer.lastName);
       setMail(lecturer.email);
-      setTitle("Dozent ändern")
+      setTitle("Dozent ändern");
     } else {
+      setLecturerId(''); // reset the lecturerId state here
       setFirstName('');
       setLastName('');
       setMail('');
-      setTitle("Dozent hinzufügen")
+      setTitle("Dozent hinzufügen");
     }
-    setOpen(true)
+    setOpen(true);
   }
+
 
   const handleSelectionChange = (event, value) => {
     setSelectedOptions(value);
@@ -81,9 +84,9 @@ const Dozent = () => {
       email: value.email,
     };
   
-    // Convert the selectedOptions array to the desired format and add to the payload
-    // only if this is an update operation
+    // If this is an update operation, include the id and the selected lectures in the payload
     if (title === "Dozent ändern") {
+      payload.id = lecturerId; // Use lecturerId here
       const selectedLectures = selectedOptions.map((lecture) => ({ id: lecture.id }));
       payload.lectures = selectedLectures;
     }
@@ -109,49 +112,50 @@ const Dozent = () => {
       }
     });
   };
-  
-  
+
+
+
 
 
   return (
     <ContentContainer handleOpen={handleOpen}>
       <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
         <Typography>{title}</Typography>
-        <TextField 
-          label="Vorname" 
-          name="firstName" 
+        <TextField
+          label="Vorname"
+          name="firstName"
           margin="normal"
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)}
-          fullWidth 
-          />
-        <TextField 
-          label="Nachname" 
-          name="lastName" 
+          fullWidth
+        />
+        <TextField
+          label="Nachname"
+          name="lastName"
           margin="normal"
           value={lastName}
           onChange={(event) => setLastName(event.target.value)}
-          fullWidth 
+          fullWidth
         />
-        <TextField 
-          label="E-Mail" 
-          name="email" 
+        <TextField
+          label="E-Mail"
+          name="email"
           type="email"
           margin="normal"
           value={mail}
           onChange={(event) => setMail(event.target.value)}
-          fullWidth 
+          fullWidth
         />
         <Autocomplete
-      multiple
-      options={lectures} // Replace with your options array
-      getOptionLabel={(lectures) => lectures.lectureName} // Replace with the label property of your option object
-      value={selectedOptions}
-      onChange={handleSelectionChange}
-      renderInput={(params) => (
-        <TextField {...params} label="Lehrveranstaltung" margin="normal"/>
-      )}
-    />
+          multiple
+          options={lectures} // Replace with your options array
+          getOptionLabel={(lectures) => lectures.lectureName} // Replace with the label property of your option object
+          value={selectedOptions}
+          onChange={handleSelectionChange}
+          renderInput={(params) => (
+            <TextField {...params} label="Lehrveranstaltung" margin="normal" />
+          )}
+        />
       </FormModal>
       {lecturers.length !== 0 && (
         <Grid container spacing={2}>
