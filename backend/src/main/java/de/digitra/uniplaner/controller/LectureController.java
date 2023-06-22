@@ -122,7 +122,9 @@ public class LectureController implements ILectureController {
     @GetMapping
     public ResponseEntity<List<Lecture>> getAlllectures() {
         log.debug("REST request to get all lectures");
-        return ResponseEntity.ok(lectureService.findAll());
+        List<Lecture> result = lectureService.findAll();
+        return ResponseEntity.ok(result);
+        //return ResponseEntity.ok(lectureService.findAll());
     }
 
     /**

@@ -163,6 +163,8 @@ public class StudyProgramController implements IStudyProgramController {
         public ResponseEntity<Void> deleteStudyProgram(@PathVariable Long id) {
             log.debug("REST request to delete studyprogram : {}", id);
             studyprogramService.delete(id);
-            return ResponseEntity.noContent().build();
+            return (ResponseEntity<Void>) ResponseEntity.ok();
+
+            //return ResponseEntity.noContent().build();
         }
 }
