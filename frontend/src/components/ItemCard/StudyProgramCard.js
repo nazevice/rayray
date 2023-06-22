@@ -18,7 +18,7 @@ const StudyProgramCard = ({shortName, programName, handleOpen}) => {
                 </Box>
                 <Typography>Dozenten</Typography>
                 <Typography>Klassen</Typography>
-                <Box>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 'auto' }}>
                 
                 <IconButton aria-label="add to favorites">
           <DeleteIcon />
