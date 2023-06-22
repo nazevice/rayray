@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <Box bgcolor="primary.main" sx={{ position: 'sticky', top: 0, zIndex: 100 }}>
       <Navbar>
-        <Navbar.Brand as={Link} to="/" style={{fontWeight: 'bold', color: 'white', marginLeft: '30px'}}>LectureMaster</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/" style={{fontWeight: 'bold', color: 'white', marginLeft: 24}}>LectureMaster</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Nav className="me-auto">
             <Link to="/dashboard" className="nav-link" style={{fontWeight: 'bold', color: 'white'}}>Dashboard</Link>

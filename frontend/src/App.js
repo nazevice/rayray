@@ -13,16 +13,27 @@ import Datenschutz from './components/Datenschutz/Datenschutz';
 import Footer from './components/Footer/Footer';
 import 'dracula-ui/styles/dracula-ui.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Box } from '@mui/material';
+import { Box, ThemeProvider, createTheme } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { red } from '@mui/material/colors';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#27374D",
+      light: "#DDE6ED"
+    },
+  },
+});
 
 
 function App() {
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Router>
-        <Box sx={{ backgroundColor: "#DDE6ED", display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Box sx={{ backgroundColor: "primary.light", display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Header />
           <Box flex="1">
           <Routes>
@@ -41,6 +52,7 @@ function App() {
           </Box>
           </Router>
     </LocalizationProvider>
+    </ThemeProvider>
   )
 }
 export default App;
