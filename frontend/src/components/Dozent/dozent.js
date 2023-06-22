@@ -66,22 +66,35 @@ const Dozent = () => {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
+  
     // Extract the form data
     const data = new FormData(event.target);
-
+  
     // Convert the form data to an object
     const value = Object.fromEntries(data.entries());
-
-    // Ensure that the keys match the expected format of the backend
+  
+    // Start creating the payload with the form data
     const payload = {
       firstName: value.firstName,
       lastName: value.lastName,
       email: value.email,
     };
-
+  
+    // Convert the selectedOptions array to the desired format and add to the payload
+    // only if this is an update operation
+    if (title === "Dozent ändern") {
+      const selectedLectures = selectedOptions.map((lecture) => ({ id: lecture.id }));
+      payload.lectures = selectedLectures;
+    }
+  
+    // Determine the appropriate method and URL for the operation
+    const method = (title === "Dozent ändern") ? 'PUT' : 'POST';
+    const url = 'http://localhost:9090/lecturers';
+  
     // Send the form data to our backend server
-    fetch('http://localhost:9090/lecturers', {
-      method: 'POST',
+    fetch(url, {
+      method: method,
       body: JSON.stringify(payload),
       headers: {
         'Content-Type': 'application/json',
@@ -96,6 +109,8 @@ const Dozent = () => {
       }
     });
   };
+  
+  
 
 
   return (
