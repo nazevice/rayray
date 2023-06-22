@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { TextField, Grid, Typography, Autocomplete } from '@mui/material';
 import FormModal from "../FormModal/FormModal";
 import LectureCard from "../ItemCard/LectureCard";
 import ContentContainer from "../ContentContainer/ContentContainer";
 
 const Lecture = () => {
+  const [lectureId, setLectureId] = useState(null);
+  const [editingLectureId, setEditingLectureId] = useState(null);
   const [lectures, setLectures] = useState(null);
   const [lecturers, setLecturers] = useState(null);
   const [studyPrograms, setStudyPrograms] = useState(null);
@@ -17,28 +19,49 @@ const Lecture = () => {
   const [duration, setDuration] = useState(60);
   const [selectedLecturers, setSelectedLecturers] = useState([]);
   const [selectedStudyProgram, setSelectedStudyProgram] = useState([]);
+
   const handleClose = () => setOpen(false);
+  // Adding this ref to keep track of component's mount status
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  const fetchData = async (url, setData) => {
+    const controller = new AbortController();
+    try {
+      const response = await fetch(url, { signal: controller.signal });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data from ${url}. Error: ${response.statusText}`);
+      }
+      const jsonData = await response.json();
+      if (isMounted.current) {
+        setData(jsonData);
+      }
+    } catch (error) {
+      if (isMounted.current) {
+        setError(`Error fetching data from ${url}: ${error.message}`);
+      }
+    } finally {
+      if (isMounted.current) {
+        setLoading(false);
+      }
+    }
+
+    return () => {
+      controller.abort();
+    };
+  };
 
   useEffect(() => {
     fetchData('http://localhost:9090/lectures', setLectures);
     fetchData('http://localhost:9090/lecturers', setLecturers);
     fetchData('http://localhost:9090/studyprograms', setStudyPrograms);
   }, []);
-
-  const fetchData = async (url, setData) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Request failed');
-      }
-      const jsonData = await response.json();
-      setData(jsonData);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -55,7 +78,7 @@ const Lecture = () => {
     // Convert the form data to an object
     const value = Object.fromEntries(data.entries());
     // Prepare the payload
-    const payload = {
+    let payload = {
       lectureName: value.lectureName,
       moduleName: value.moduleName,
       duration: value.duration,
@@ -63,30 +86,46 @@ const Lecture = () => {
       course: value.course,
     };
     // Send the form data to your backend server
-    fetch('http://localhost:9090/lectures', {
-      method: 'POST',
+    const url = 'http://localhost:9090/lectures';
+    let method = 'POST';
+    if (lectureId) {
+      method = 'PUT';
+      payload = {
+        ...payload,
+        id: lectureId,
+      };
+    }
+    fetch(url, {
+      method: method,
       body: JSON.stringify(payload),
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     }).then((response) => {
       if (response.ok) {
         // Handle successful submission
         console.log('Data submitted successfully');
+        // Reload lectures
+        fetchData('http://localhost:9090/lectures', setLectures);
       } else {
         // Handle errors
         console.error('Error submitting data:', response);
       }
     });
+    handleClose();
   };
+
 
   const handleOpen = (lecture) => {
     if (lecture != null) {
+      setLectureId(lecture.id); // Set lectureId when editing
+      setEditingLectureId(lecture.id);
       setLectureName(lecture.lectureName);
-      setModuleName(lecture.modulName);
+      setModuleName(lecture.moduleName);
       setDuration(lecture.duration);
       setTitle("Vorlesung ändern")
     } else {
+      setLectureId(null); // Make sure lectureId is null when adding
       setLectureName('');
       setModuleName('');
       setDuration(60);
@@ -94,6 +133,29 @@ const Lecture = () => {
     }
     setOpen(true)
   }
+  
+  const deleteData = async (url, id) => {
+    const response = await fetch(`${url}/${id}`, {
+      method: 'DELETE',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to delete data');
+    }
+  
+    return response.json();
+  };
+  
+  const handleDelete = (id) => {
+    deleteData('http://localhost:9090/lectures', id)
+      .then(() => {
+        // Once the data is deleted, fetch the new data
+        fetchData('http://localhost:9090/lectures', setLectures);
+      })
+      .catch((error) => {
+        setError(`Error deleting data: ${error.message}`);
+      });
+  };
 
   const handleLecturersSelection = (event, value) => {
     setSelectedLecturers(value);
@@ -104,7 +166,7 @@ const Lecture = () => {
   };
 
   return (
-    <ContentContainer handleOpen={handleOpen}>
+    <ContentContainer handleOpen={() => handleOpen(null)}>
       <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
         <Typography>{title}</Typography>
         <TextField
@@ -113,7 +175,7 @@ const Lecture = () => {
           name="lectureName"
           margin="normal"
           value={lectureName}
-          onChange={(event) => setLectureName(event.value.target)}
+          onChange={(event) => setLectureName(event.target.value)}
         />
         <TextField
           fullWidth
@@ -130,7 +192,7 @@ const Lecture = () => {
           margin="normal"
           type="number"
           value={duration}
-          onChange={(event) => setDuration(event)}
+          onChange={(event) => setDuration(event.target.value)}
         />
         <Autocomplete
           multiple
@@ -160,6 +222,7 @@ const Lecture = () => {
                 key={item.id}
                 lecture={item}
                 handleOpen={handleOpen}
+                handleDelete={handleDelete}
               />
             </Grid>
           ))}
