@@ -1,8 +1,13 @@
 import React from 'react';
 
 const Impressum = () => {
+    const impressumStyle={
+        marginLeft:'20px',
+        marginRight:'25px',
+        textAlign: 'justify'
+    }
     return (
-        <div>
+        <div style={impressumStyle}>
             <h1><strong>Impressum</strong></h1>
             <p><strong>LectureMaster</strong></p>
             <p>Eine Unternehmung der LectureMaster GmbH</p>
