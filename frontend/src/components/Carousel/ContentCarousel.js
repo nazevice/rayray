@@ -15,7 +15,7 @@ const ContentCarousel = () => {
 
     };
     return (
-        <Carousel>
+        <Carousel controls={false} variant='dark'>
             <Carousel.Item>
                 <ContentCarouselItem>
                     <div style={textStyle}>

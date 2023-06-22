@@ -10,7 +10,7 @@ const ContentCarouselItem = ({ title, children }) => {
             <Typography fontSize="18px" fontWeight="bold" mt="16px">{title}</Typography>
           
         </Box>
-        <div style={{ backgroundColor: 'silver', padding: '8px', borderRadius: '4px' }}>
+        <div style={{ backgroundColor: 'white', padding: '8px', borderRadius: '4px' }}>
           <Typography mt="8px">{children}</Typography>
         </div>
       </Card>

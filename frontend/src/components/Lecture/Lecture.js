@@ -6,7 +6,7 @@ import ContentContainer from "../ContentContainer/ContentContainer";
 
 const Lecture = () => {
   const [lectureId, setLectureId] = useState(null);
-  const [editingLectureId, setEditingLectureId] = useState(null);
+  const [setEditingLectureId] = useState(null);
   const [lectures, setLectures] = useState(null);
   const [lecturers, setLecturers] = useState(null);
   const [studyPrograms, setStudyPrograms] = useState(null);
