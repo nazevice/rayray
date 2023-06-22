@@ -138,12 +138,11 @@ const Lecture = () => {
     const response = await fetch(`${url}/${id}`, {
       method: 'DELETE',
     });
-    
+  
     if (!response.ok) {
       throw new Error('Failed to delete data');
     }
   
-    return response.json();
   };
   
   const handleDelete = (id) => {
