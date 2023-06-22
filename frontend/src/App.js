@@ -16,7 +16,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Box, ThemeProvider, createTheme } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { red } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
@@ -24,6 +23,13 @@ const theme = createTheme({
       main: "#27374D",
       light: "#DDE6ED"
     },
+    secondary: {
+      main: "#fff"
+    },
+    custom: {
+      fontMain: "#181818",
+      fontSecondary: "#fff"
+    }
   },
 });
 

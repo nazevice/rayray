@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ContentContainer from '../ContentContainer/ContentContainer';
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Grid, Typography, useTheme } from '@mui/material';
 import LecturersCard from '../ItemCard/LecturersCard';
 import { DateCalendar } from '@mui/x-date-pickers';
 
@@ -12,6 +12,7 @@ const Dashboard = () => {
     const [lectureDates, setLectureDates] = useState([]);
     const [lecturesInRange, setLecturesInRange] = useState([]);
 
+    const theme = useTheme();
     useEffect(() => {
         fetchData('http://localhost:9090/lecturers', setLecturers);
         fetchData('http://localhost:9090/lecturedates', setLectureDates);
@@ -44,8 +45,8 @@ const Dashboard = () => {
         console.log("gen: " + date);
         const startDate = new Date(...startDateArr);
         const endDate = new Date(...endDateArr);
-        if(date===undefined) return false;
-        if(date.isBetween(startDate, endDate)){
+        if (date === undefined) return false;
+        if (date.isBetween(startDate, endDate)) {
             return true;
         } else {
             return false;
@@ -58,17 +59,16 @@ const Dashboard = () => {
         let currentLectureDate = []
         if (lectureDates.length !== 0 && date !== undefined) {
             for (let i = 0; i < lectureDates.length; i++) {
-                if(generateDateRange(lectureDates[i].startDate, lectureDates[i].endDate)) {
+                if (generateDateRange(lectureDates[i].startDate, lectureDates[i].endDate)) {
                     currentLectureDate.push(lectureDates[i]);
                 }
             }
             setLecturesInRange(currentLectureDate)
         }
     }
-
     return (
         <ContentContainer>
-            <Grid container spacing={2}>
+            <Grid container>
                 <Grid item xs={12}>
                     <Box
                         display="flex"
@@ -83,9 +83,9 @@ const Dashboard = () => {
                             ))}
                     </Box>
                 </Grid>
-                <Grid item xs={6}>
-                    <Box>
-                        <Typography>Datum</Typography>
+                <Grid item xs={6} style={{ padding: 0, marginLeft: 0 }}>
+                    <Box margin={0}>
+                        <Typography variant="h4" fontFamily="Poppins" marginBottom={1}>Datum</Typography>
                         <DateCalendar
                             value={date}
                             onChange={(newDate) => onDateChange(newDate)}
@@ -94,12 +94,13 @@ const Dashboard = () => {
                                     selectedDay: date,
                                 },
                             }}
+                            style={{ padding: 0, marginLeft: -20 }}
                         />
                     </Box>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography>Vorlesungen</Typography>
-                    {lecturesInRange.length !== 0 && 
+                    <Typography variant="h4" fontFamily="Poppins" marginBottom={1}>Vorlesungen</Typography>
+                    {lecturesInRange.length !== 0 &&
                         lecturesInRange.map(item => (
                             <Card>
                                 <CardContent>
