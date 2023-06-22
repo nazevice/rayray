@@ -23,7 +23,7 @@ const LectureCard = ({lecture, handleOpen}) => {
                 <IconButton aria-label="add to favorites">
           <DeleteIcon />
         </IconButton>
-        <IconButton aria-label="share" onClick={handleOpen}>
+        <IconButton aria-label="share" onClick={() => handleOpen(lecture)}>
           <EditIcon />
         </IconButton>
                 </Box>

@@ -1,34 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import StudyProgramCard from '../ItemCard/StudyProgramCard';
-import { Box, Grid, TextField, Button } from '@mui/material';
+import { Autocomplete, Box, Grid, TextField } from '@mui/material';
 import FormModal from '../FormModal/FormModal';
 
 const StudyProgram = () => {
-    const [data, setData] = useState(null);
+    const [studyPrograms, setStudyPrograms] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [studyClasses, setStudyClasses] = useState([]);
+    const [selectedStudyClasses, setSelectedStudyClasses] = useState([]);
+    const [lectures, setLectures] = useState([]);
+    const [selectedLectures, setSelectedLectures] = useState([]);
+    const [lecturers, setLecturers] = useState([]);
+    const [selectedLecturers, setSelectedLecturers] = useState([]);
+    
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://localhost:9090/studyprograms');
-                if (!response.ok) {
-                    throw new Error('Request failed');
-                }
-                const jsonData = await response.json();
-                setData(jsonData);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
+        fetchData('http://localhost:9090/studyprograms', setStudyPrograms);
+        fetchData('http://localhost:9090/studyclasses', setStudyClasses);
+        fetchData('http://localhost:9090/lectures', setLectures);
+        fetchData('http://localhost:9090/lecturers', setLecturers);
     }, []);
+
+    const fetchData = async (url, setData) => {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Request failed');
+            }
+            const jsonData = await response.json();
+            setData(jsonData);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -42,18 +52,70 @@ const StudyProgram = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
+
+    const handleStudyClassesSelection = (event, value) => {
+        setSelectedStudyClasses(value);
+    };
+
+    const handleLecturesSelection = (event, value) => {
+        setSelectedLectures(value);
+    };
+
+    const handleLecturersSelection = (event, value) => {
+        setSelectedLecturers(value);
+    };
+
     return (
         <Box fill padding={2}>
             <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
-                <TextField required id="name" label="Name" name="name" margin="normal" fullWidth />
-                <TextField required id="shortName" label="Kürzel" name="shortName" margin="normal" fullWidth />
-                <TextField id="course" label="Studiengang" name="course" margin="normal" fullWidth />
-                <TextField id="lecture" label="Lehrveranstaltung" name="lecture" margin="normal" fullWidth />
-                <TextField id="lecturer" label="Dozent" name="lecturer" margin="normal" fullWidth />
+                <TextField
+                    id="name"
+                    label="Name"
+                    name="name"
+                    margin="normal"
+                    fullWidth
+                />
+                <TextField
+                    id="shortName"
+                    label="Kürzel"
+                    name="shortName"
+                    margin="normal"
+                    fullWidth
+                />
+                <Autocomplete
+                    multiple
+                    options={studyClasses}
+                    getOptionLabel={(studyClass) => studyClass.name}
+                    value={selectedStudyClasses}
+                    onChange={handleStudyClassesSelection}
+                    renderInput={(params) => (
+                        <TextField {...params} label="Studienklasse" margin="normal" />
+                    )}
+                />
+                <Autocomplete
+                    multiple
+                    options={lectures}
+                    getOptionLabel={(lecture) => lecture.lectureName}
+                    value={selectedLectures}
+                    onChange={handleLecturesSelection}
+                    renderInput={(params) => (
+                        <TextField {...params} label="Lehrveranstaltung" margin="normal" />
+                    )}
+                />
+                <Autocomplete
+                    multiple
+                    options={lecturers}
+                    getOptionLabel={(lecturer) => lecturer.firstName + " " + lecturer.lastName}
+                    value={selectedLecturers}
+                    onChange={handleLecturersSelection}
+                    renderInput={(params) => (
+                        <TextField {...params} label="Dozent" margin="normal" />
+                    )}
+                />
             </FormModal>
-            {data && (
+            {studyPrograms && (
                 <Grid container spacing={2}>
-                    {data.map(item => (
+                    {studyPrograms.map(item => (
                         <Grid item xs={4}>
                             <StudyProgramCard
                                 key={item.id}

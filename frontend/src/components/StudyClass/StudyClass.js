@@ -1,35 +1,38 @@
-import { Box, Grid, TextField, Button } from "@mui/material";
+import { Autocomplete, Box, Grid, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FormModal from "../FormModal/FormModal";
-import LecturersCard from "../ItemCard/LecturersCard";
 import StudyClassCard from "../ItemCard/StudyClassCard";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const StudyClass = () => {
-    const [data, setData] = useState(null);
+    const [studyClasses, setStudyClasses] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [studyPrograms, setStudyPrograms] = useState(null);
+    const [selectedStudyProgram, setSelectedStudyProgram] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://localhost:9090/studyclasses');
-                if (!response.ok) {
-                    throw new Error('Request failed');
-                }
-                const jsonData = await response.json();
-                setData(jsonData);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
+        fetchData('http://localhost:9090/studyclasses', setStudyClasses);
+        fetchData('http://localhost:9090/studyprograms', setStudyPrograms);
     }, []);
+
+    const fetchData = async (url, setData) => {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Request failed');
+            }
+            const jsonData = await response.json();
+            setData(jsonData);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -69,6 +72,10 @@ const StudyClass = () => {
         });
     };
 
+    const handleStudyProgramSelection = (event, value) => {
+        setSelectedStudyProgram(value);
+      };
+
     return (
         <Box fill padding={2}>
             <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
@@ -78,24 +85,31 @@ const StudyClass = () => {
             name="className"
             margin="normal"
             />
-          <TextField
-            fullWidth
-            label="Beginn der Studienklasse"
-            name="startDate"
-            type="date"
-            margin="normal"
+            <DatePicker
+                fullWidth
+                label="Beginn der Studienklasse"
+                name="startDate"
+                margin="normal"
             />
-          <TextField
-            fullWidth
-            label="Ende der Studienklasse"
-            name="endDate"
-            type="date"
-            margin="normal"
-          />
+            <DatePicker 
+                fullWidth
+                label="Ende der Studienklasse"
+                name="endDate"
+                margin="normal"
+            />
+            <Autocomplete
+      options={studyPrograms}
+      getOptionLabel={(studyPrograms) => studyPrograms.name}
+      value={selectedStudyProgram}
+      onChange={handleStudyProgramSelection}
+      renderInput={(params) => (
+        <TextField {...params} label="Studiengang" margin="normal"/>
+      )}
+    />
             </FormModal>
-            {data && (
+            {studyClasses && (
         <Grid container spacing={2}>
-          {data.map(item => (
+          {studyClasses.map(item => (
             <Grid item xs={4}>
             <StudyClassCard 
                 key={item.id}
