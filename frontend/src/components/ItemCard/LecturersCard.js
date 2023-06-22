@@ -3,7 +3,6 @@ import React from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-
 const LecturersCard = ({ lecturer, handleOpen, handleDelete }) => {
   return (
     <Card>
@@ -13,17 +12,12 @@ const LecturersCard = ({ lecturer, handleOpen, handleDelete }) => {
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>{lecturer.mail}</Typography>
         </Box>
         <Typography>Vorlesungen</Typography>
-        <Box>
-
-        </Box>
         <Typography>Dozenten</Typography>
         <Typography>Klassen</Typography>
-        <Box>
-
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 'auto' }}>
           <IconButton aria-label="delete" onClick={() => handleDelete(lecturer.id)}>
             <DeleteIcon />
           </IconButton>
-
           <IconButton aria-label="share" onClick={() => handleOpen(lecturer)}>
             <EditIcon />
           </IconButton>
@@ -32,4 +26,5 @@ const LecturersCard = ({ lecturer, handleOpen, handleDelete }) => {
     </Card>
   );
 }
+
 export default LecturersCard;
