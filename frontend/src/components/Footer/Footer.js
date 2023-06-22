@@ -16,14 +16,14 @@ const Footer = () => {
                     backgroundColor: 'primary.main',
                     color: 'white'
                 }}>
-                <Typography variant="body1" component="a" href="/impressum" style={{ color: 'white', margin: '0 10px 0 20px' }}>
+                <Typography variant="body1" component="a" href="/impressum" style={{color: 'white', margin: '0 10px 0 30px' }}>
                     Impressum
                 </Typography>
-                <Typography variant="body1" component="a" href="/datenschutz" style={{ color: 'white', margin: '0 20px' }}>
+                <Typography variant="body1" component="a" href="/datenschutz" style={{ color: 'white', margin: '0 10px' }}>
                     Datenschutz
                 </Typography>
 
-                <span style={{ textAlignLast: 'right', margin: '0 25px' }}>© 2023 LectureMaster</span>
+                <span style={{ textAlignLast: 'right', margin: '0 30px' }}>© 2023 LectureMaster</span>
 
             </Box>
         </footer>

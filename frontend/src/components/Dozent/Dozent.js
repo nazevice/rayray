@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, TextField, Grid, Typography, Autocomplete, Snackbar } from '@mui/material';
-import MuiAlert from '@mui/material/Alert';
+import {TextField, Grid, Typography, Autocomplete } from '@mui/material';
 import FormModal from "../FormModal/FormModal";
 import LecturersCard from "../ItemCard/LecturersCard";
 import ContentContainer from "../ContentContainer/ContentContainer";
