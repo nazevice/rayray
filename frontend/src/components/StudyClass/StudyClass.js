@@ -109,7 +109,7 @@ const StudyClass = () => {
                 />
             </FormModal>
             {studyClasses && (
-                <Grid container spacing={2}>
+                <Grid container spacing={2} padding={0}>
                     {studyClasses.map(item => (
                         <Grid item xs={4}>
                             <StudyClassCard

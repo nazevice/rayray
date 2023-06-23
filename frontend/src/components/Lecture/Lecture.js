@@ -251,7 +251,7 @@ const Lecture = () => {
           />
         </FormModal>
         {lectures && (
-          <Grid container spacing={2}>
+          <Grid container spacing={2} padding={0}>
             {lectures.map(item => (
               <Grid item xs={4}>
                 <LectureCard

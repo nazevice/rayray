@@ -212,7 +212,7 @@ const Dozent = () => {
           />
         </FormModal>
         {lecturers.length !== 0 && (
-          <Grid container spacing={3} padding={0}>
+          <Grid container spacing={2} padding={0}>
             {lecturers.map(item => (
               <Grid item xs={4}>
                 <LecturersCard
