@@ -68,7 +68,7 @@ const Dashboard = () => {
     }
     return (
         <ContentContainer>
-            <Grid container>
+            <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Box
                         display="flex"
@@ -79,36 +79,80 @@ const Dashboard = () => {
                     >
                         {lecturers.length !== 0 &&
                             lecturers.map((item) => (
-                                <LecturersCard key={item.id} lecturer={item} />
+                                <LecturersCard key={item.id} lecturer={item} isDashboard={true} />
                             ))}
                     </Box>
                 </Grid>
-                <Grid item xs={6} style={{ padding: 0, marginLeft: 0 }}>
-                    <Box margin={0}>
-                        <Typography variant="h4" fontFamily="Poppins" marginBottom={1}>Datum</Typography>
-                        <DateCalendar
-                            value={date}
-                            onChange={(newDate) => onDateChange(newDate)}
-                            slotProps={{
-                                day: {
-                                    selectedDay: date,
-                                },
-                            }}
-                            style={{ padding: 0, marginLeft: -20 }}
-                        />
-                    </Box>
+                <Grid item xs={3}>
+                    <Card>
+                        <CardContent sx={{ height: "200px" }}>
+                            <Typography variant="h5">Studiengänge</Typography>
+                            <Typography variant="h1" align="center">1</Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={3}>
+                    <Card>
+                        <CardContent sx={{ height: "200px" }}>
+                            <Typography variant="h5">Studienklassen</Typography>
+                            <Typography variant="h1" align="center">1</Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={3}>
+                    <Card>
+                        <CardContent sx={{ height: "200px" }}>
+                            <Typography variant="h5">Lehrveranstaltungen</Typography>
+                            <Typography variant="h1" align="center">1</Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={3}>
+                    <Card>
+                        <CardContent sx={{ height: "200px" }}>
+                            <Typography variant="h5">Dozenten</Typography>
+                            <Typography variant="h1" align="center">1</Typography>
+                        </CardContent>
+                    </Card>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography variant="h4" fontFamily="Poppins" marginBottom={1}>Vorlesungen</Typography>
-                    {lecturesInRange.length !== 0 &&
-                        lecturesInRange.map(item => (
-                            <Card>
-                                <CardContent>
-                                    <Typography>{"Von: " + item.startDate + " Bis: " + item.endDate}</Typography>
-                                </CardContent>
-                            </Card>
-                        ))
-                    }
+                    <Card margin={0}>
+                        <CardContent sx={{ height: "400px" }}>
+                            <Typography variant="h4" fontFamily="Poppins" marginBottom={1}>Datum</Typography>
+                            <DateCalendar
+                                value={date}
+                                onChange={(newDate) => onDateChange(newDate)}
+                                slotProps={{
+                                    day: {
+                                        selectedDay: date,
+                                    },
+                                }}
+                                style={{ padding: 0, marginLeft: -16 }}
+                            />
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={6}>
+                    <Card>
+                        <CardContent sx={{ height: "400px" }}>
+                            <Typography variant="h4" fontFamily="Poppins" marginBottom={1}>Vorlesungen</Typography>
+                            {lecturesInRange.length !== 0 &&
+                                lecturesInRange.map(item => (
+                                    <Card>
+                                        <CardContent 
+                                            sx={{
+                                                backgroundColor: theme.palette.primary.main,
+                                                color: theme.palette.custom.fontSecondary
+                                            }}
+                                        >
+                                            <Typography variant="p">{
+            new Date(...item.startDate).toISOString().split("T")[0] + " bis " + new Date(...item.endDate).toISOString().split("T")[0]}</Typography>
+                                        </CardContent>
+                                    </Card>
+                                ))
+                            }
+                        </CardContent>
+                    </Card>
                 </Grid>
             </Grid>
         </ContentContainer>
