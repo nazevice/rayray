@@ -1,21 +1,29 @@
 import React from 'react';
 import ContentCarousel from '../Carousel/ContentCarousel';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography, useTheme } from '@mui/material';
 import { Player } from '@lottiefiles/react-lottie-player';
 
 const Content = () => {
+    const theme = useTheme();
     return (
-        <Grid container spacing={2}>
+        <Grid container>
             <Grid item xs={6}>
-                <Box marginTop="2em" padding="5em">
-                    <Box width="100%" style={{marginLeft:'-50px'}}>
-                        <Typography variant="h2" fontFamily="Poppins" fontWeight="600">Simples Dashboard</Typography>
-                        <Typography>
+                <Box marginLeft={3} marginTop={6}>
+                    <Box width="100%">
+                        <Typography 
+                            variant="h2" 
+                            fontFamily="Poppins" 
+                            fontWeight="600"
+                            sx={{color: theme.palette.custom.fontMain}}
+                        >
+                            Simples Dashboard
+                        </Typography>
+                        <Typography sx={{color: theme.palette.custom.fontMain}}>
                             Als Dozent können sie sich die Details über die angebotenen
                             Vorlesungen einsehen und geplanten Vorlesungen einsehen.
                         </Typography>
                     </Box>
-                    <Button variant="contained" style={{marginLeft:'-50px'}}>Jetzt beginnen</Button>
+                    <Button sx={{color: theme.palette.custom.fontSecondary}} variant="contained">Jetzt beginnen</Button>
                 </Box>
             </Grid>
             <Grid item xs={6}>
