@@ -25,7 +25,7 @@ const FormModal = ({ open, handleClose, handleSubmit, children }) => {
                     color="primary"
                     fullWidth
                 >
-                    Submit
+                    Abschicken
                 </Button>
             </Box>
         </Modal>

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {TextField, Grid, Typography, Autocomplete } from '@mui/material';
+import { TextField, Grid, Typography, Autocomplete, Snackbar, Alert } from '@mui/material';
 import FormModal from "../FormModal/FormModal";
 import LecturersCard from "../ItemCard/LecturersCard";
 import ContentContainer from "../ContentContainer/ContentContainer";
-
-
 
 const Dozent = () => {
   const [lecturerId, setLecturerId] = useState('');
@@ -19,8 +17,24 @@ const Dozent = () => {
   const [mail, setMail] = useState('')
   const [selectedOptions, setSelectedOptions] = useState([]);
   const handleClose = () => setOpen(false);
-
   const [refreshKey, setRefreshKey] = useState(0);
+  const [snackPack, setSnackPack] = React.useState([]);
+  const [openSnack, setOpenSnack] = React.useState(false);
+  const [messageInfo, setMessageInfo] = React.useState(undefined);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
+
+  React.useEffect(() => {
+    if (snackPack.length && !snackbarMessage) {
+      setSnackbarMessage(snackPack[0].message);
+      setMessageInfo({ ...snackPack[0] });
+      setOpenSnack(true);
+      setSnackPack((prev) => prev.slice(1));
+    } else if (snackPack.length > 0 && messageInfo && openSnack === false) {
+      setSnackbarMessage('');
+      setMessageInfo(undefined);
+    }
+  }, [snackPack, messageInfo, openSnack, snackbarMessage]);
+
   useEffect(() => {
     fetchData('http://localhost:9090/lecturers', setLecturers);
     fetchData('http://localhost:9090/lectures', setLectures)
@@ -111,9 +125,11 @@ const Dozent = () => {
         // Handle successful submission
         console.log('Data submitted successfully');
         setRefreshKey(oldKey => oldKey + 1); // trigger a refetch
+        setSnackPack((prev) => [...prev, { message: (title === "Dozent ändern") ? 'Daten erfolgreich geändert!' : 'Dozent wurde angelegt!', severity: 'success' }]);
       } else {
         // Handle errors
         console.error('Error submitting data:', response);
+        setSnackPack((prev) => [...prev, { message: 'E-Mail-Adresse exisitert bereits!', severity: 'error' }]);
       }
     });
   };
@@ -121,81 +137,119 @@ const Dozent = () => {
   const handleDelete = (id) => {
     // Optimistically remove the lecturer from the local state
     setLecturers(prevLecturers => prevLecturers.filter(lecturer => lecturer.id !== id));
-    
+
     fetch(`http://localhost:9090/lecturers/${id}`, {
       method: 'DELETE',
     })
       .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.ok) {
+          setSnackPack((prev) => [...prev, { message: 'Dozent wurde entfernt!', severity: 'success' }]);
+        } else {
+          setSnackPack((prev) => [...prev, { message: 'Fehler beim Entfernen des Dozenten!', severity: 'error' }]);
+          setRefreshKey(oldKey => oldKey + 1);
         }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.log('Error deleting the lecturer: ', error);
-        // If the delete operation failed, refetch the data
-        setRefreshKey(oldKey => oldKey + 1);
       });
   }
 
+  const processQueue = () => {
+    if (snackPack.length > 0) {
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setOpenSnack(true);
+    }
+  };
+
+
+  const handleSnackClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnack(false);
+  };
+
   return (
-    <ContentContainer handleOpen={handleOpen}>
-      <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
-        <Typography>{title}</Typography>
-        <TextField
-          label="Vorname"
-          name="firstName"
-          margin="normal"
-          value={firstName}
-          onChange={(event) => setFirstName(event.target.value)}
-          fullWidth
-        />
-        <TextField
-          label="Nachname"
-          name="lastName"
-          margin="normal"
-          value={lastName}
-          onChange={(event) => setLastName(event.target.value)}
-          fullWidth
-        />
-        <TextField
-          label="E-Mail"
-          name="email"
-          type="email"
-          margin="normal"
-          value={mail}
-          onChange={(event) => setMail(event.target.value)}
-          fullWidth
-        />
-        <Autocomplete
-          multiple
-          options={lectures}
-          getOptionLabel={(lectures) => lectures.lectureName}
-          value={selectedOptions}
-          onChange={handleSelectionChange}
-          renderInput={(params) => (
-            <TextField {...params} label="Lehrveranstaltung" margin="normal" />
-          )}
-        />
-      </FormModal>
-      {lecturers.length !== 0 && (
-        <Grid container spacing={3} padding={0}>
-          {lecturers.map(item => (
-            <Grid item xs={4}>
-              <LecturersCard
-                key={item.id}
-                lecturer={item}
-                handleOpen={handleOpen}
-                handleDelete={handleDelete}  // add handleDelete prop here
-              />
-            </Grid>
-          ))}
-        </Grid>
-      )}
-    </ContentContainer>
+    <>
+      <ContentContainer handleOpen={handleOpen}>
+        <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
+          <Typography>{title}</Typography>
+          <TextField
+            required
+            label="Vorname"
+            name="firstName"
+            margin="normal"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            required
+            label="Nachname"
+            name="lastName"
+            margin="normal"
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            required
+            label="E-Mail"
+            name="email"
+            type="email"
+            margin="normal"
+            value={mail}
+            onChange={(event) => setMail(event.target.value)}
+            fullWidth
+          />
+          <Autocomplete
+            multiple
+            options={lectures}
+            getOptionLabel={(lectures) => lectures.lectureName}
+            value={selectedOptions}
+            onChange={handleSelectionChange}
+            renderInput={(params) => (
+              <TextField {...params} label="Lehrveranstaltung" margin="normal" />
+            )}
+          />
+        </FormModal>
+        {lecturers.length !== 0 && (
+          <Grid container spacing={3} padding={0}>
+            {lecturers.map(item => (
+              <Grid item xs={4}>
+                <LecturersCard
+                  key={item.id}
+                  lecturer={item}
+                  handleOpen={handleOpen}
+                  handleDelete={handleDelete}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
+      </ContentContainer>
+      <Snackbar
+        key={messageInfo ? messageInfo.key : undefined}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={openSnack}
+        autoHideDuration={4000}
+        onClose={handleSnackClose}
+        onExited={() => {
+          processQueue();
+          setSnackbarMessage('');
+        }}
+        style={{ bottom: 50 }}
+      >
+        <Alert
+          onClose={handleSnackClose}
+          severity={messageInfo ? messageInfo.severity : "success"}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+    </>
   )
 }
 

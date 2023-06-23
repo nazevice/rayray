@@ -6,7 +6,6 @@ import ContentContainer from "../ContentContainer/ContentContainer";
 
 const Lecture = () => {
   const [lectureId, setLectureId] = useState(null);
-  const [setEditingLectureId] = useState(null);
   const [lectures, setLectures] = useState(null);
   const [lecturers, setLecturers] = useState(null);
   const [studyPrograms, setStudyPrograms] = useState(null);
@@ -80,7 +79,7 @@ const Lecture = () => {
     // Prepare the payload
     let payload = {
       lectureName: value.lectureName,
-      moduleName: value.moduleName,
+      modulName: value.modulName,
       duration: value.duration,
       lectureDate: value.lectureDate,
       course: value.course,
@@ -119,7 +118,6 @@ const Lecture = () => {
   const handleOpen = (lecture) => {
     if (lecture != null) {
       setLectureId(lecture.id); // Set lectureId when editing
-      setEditingLectureId(lecture.id);
       setLectureName(lecture.lectureName);
       setModuleName(lecture.moduleName);
       setDuration(lecture.duration);
@@ -179,7 +177,7 @@ const Lecture = () => {
         <TextField
           fullWidth
           label="Name des Moduls"
-          name="moduleName"
+          name="modulName"
           margin="normal"
           value={moduleName}
           onChange={(event) => setModuleName(event.target.value)}

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import FormModal from "../FormModal/FormModal";
 import StudyClassCard from "../ItemCard/StudyClassCard";
 import { DatePicker } from "@mui/x-date-pickers";
+import ContentContainer from "../ContentContainer/ContentContainer";
 
 const StudyClass = () => {
     const [studyClasses, setStudyClasses] = useState(null);
@@ -74,53 +75,53 @@ const StudyClass = () => {
 
     const handleStudyProgramSelection = (event, value) => {
         setSelectedStudyProgram(value);
-      };
+    };
 
     return (
-        <Box fill padding={2}>
+        <ContentContainer handleOpen={handleOpen}>
             <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="Name der Studienklasse"
-            name="className"
-            margin="normal"
-            />
-            <DatePicker
-                fullWidth
-                label="Beginn der Studienklasse"
-                name="startDate"
-                margin="normal"
-            />
-            <DatePicker 
-                fullWidth
-                label="Ende der Studienklasse"
-                name="endDate"
-                margin="normal"
-            />
-            <Autocomplete
-      options={studyPrograms}
-      getOptionLabel={(studyPrograms) => studyPrograms.name}
-      value={selectedStudyProgram}
-      onChange={handleStudyProgramSelection}
-      renderInput={(params) => (
-        <TextField {...params} label="Studiengang" margin="normal"/>
-      )}
-    />
+                <TextField
+                    fullWidth
+                    label="Name der Studienklasse"
+                    name="className"
+                    margin="normal"
+                />
+                <DatePicker
+                    fullWidth
+                    label="Beginn der Studienklasse"
+                    name="startDate"
+                    margin="normal"
+                />
+                <DatePicker
+                    fullWidth
+                    label="Ende der Studienklasse"
+                    name="endDate"
+                    margin="normal"
+                />
+                <Autocomplete
+                    options={studyPrograms}
+                    getOptionLabel={(studyPrograms) => studyPrograms.name}
+                    value={selectedStudyProgram}
+                    onChange={handleStudyProgramSelection}
+                    renderInput={(params) => (
+                        <TextField {...params} label="Studiengang" margin="normal" />
+                    )}
+                />
             </FormModal>
             {studyClasses && (
-        <Grid container spacing={2}>
-          {studyClasses.map(item => (
-            <Grid item xs={4}>
-            <StudyClassCard 
-                key={item.id}
-                item={item}
-                handleOpen={handleOpen}
-            />
-            </Grid>
-          ))}
-        </Grid>
-      )}
-        </Box>
+                <Grid container spacing={2}>
+                    {studyClasses.map(item => (
+                        <Grid item xs={4}>
+                            <StudyClassCard
+                                key={item.id}
+                                studyClass={item}
+                                handleOpen={handleOpen}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            )}
+        </ContentContainer>
     )
 }
 export default StudyClass;
