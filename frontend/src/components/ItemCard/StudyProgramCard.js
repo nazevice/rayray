@@ -6,7 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const StudyProgramCard = ({ studyProgram, handleOpen, handleDelete }) => {
   return (
-    <Card sx={{ maxWidth: "350px", minHeight: "150px", display: 'flex', flexDirection: 'column' }}>
+    <Card sx={{ minHeight: "150px", display: 'flex', flexDirection: 'column' }}>
     <CardContent sx={{ flexGrow: 1 }}>
       <Box>
         <Typography 

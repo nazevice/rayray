@@ -5,12 +5,12 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const LectureCard = ({ lecture, handleOpen, handleDelete }) => {
   return (
-    <Card sx={{ maxWidth: "350px", minHeight: "180px", display: 'flex', flexDirection: 'column' }}>
+    <Card sx={{ minHeight: "180px", display: 'flex', flexDirection: 'column' }}>
       <CardContent sx={{ flexGrow: 1 }}>
         <Box>
           <Typography sx={{
             textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap',
-            maxWidth: '350px',
+            //
           }} variant="h5">{lecture.lectureName}</Typography>
           <Typography sx={{
             textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap',
@@ -26,7 +26,7 @@ const LectureCard = ({ lecture, handleOpen, handleDelete }) => {
         <IconButton style={{ color: '#B31312' }} aria-label="delete" onClick={() => handleDelete(lecture.id)}>
           <DeleteIcon />
         </IconButton>
-        <IconButton aria-label="share" onClick={() => handleOpen(lecture)}>
+        <IconButton aria-label="edit" onClick={() => handleOpen(lecture)}>
           <EditIcon />
         </IconButton>
       </Box>
