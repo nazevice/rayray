@@ -170,6 +170,7 @@ const StudyProgram = () => {
         <FormModal open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
           <Typography>{title}</Typography>
           <TextField
+            required
             id="name"
             label="Name"
             name="name"
@@ -179,6 +180,7 @@ const StudyProgram = () => {
             fullWidth
           />
           <TextField
+            required
             id="shortName"
             label="Kürzel"
             name="shortName"
