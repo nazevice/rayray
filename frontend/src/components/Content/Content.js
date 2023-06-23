@@ -8,14 +8,14 @@ const Content = () => {
         <Grid container spacing={2}>
             <Grid item xs={6}>
                 <Box marginTop="2em" padding="5em">
-                    <Box width="100%" style={{marginLeft:'-40px'}}>
+                    <Box width="100%" style={{marginLeft:'-50px'}}>
                         <Typography variant="h2" fontFamily="Poppins" fontWeight="600">Simples Dashboard</Typography>
                         <Typography>
                             Als Dozent können sie sich die Details über die angebotenen
                             Vorlesungen einsehen und geplanten Vorlesungen einsehen.
                         </Typography>
                     </Box>
-                    <Button variant="contained" style={{marginLeft:'-40px'}}>Jetzt beginnen</Button>
+                    <Button variant="contained" style={{marginLeft:'-50px'}}>Jetzt beginnen</Button>
                 </Box>
             </Grid>
             <Grid item xs={6}>
