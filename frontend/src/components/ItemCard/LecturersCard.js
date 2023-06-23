@@ -10,10 +10,30 @@ const LecturersCard = ({ lecturer, handleOpen, handleDelete, isDashboard }) => {
     <Card sx={isDashboard ? style2:style}>
   <CardContent sx={{flexGrow: 1}}>
     <Box>
-      <Typography sx={{textOverflow: 'ellipsis', overflow: 'hidden',whiteSpace: 'nowrap',
-    maxWidth: '350px',}}variant="h5">{lecturer.firstName + " " + lecturer.lastName}</Typography>
-      <Typography sx={{textOverflow: 'ellipsis', overflow: 'hidden',whiteSpace: 'nowrap',
-    maxWidth: '350px', fontSize: "14"}} color="text.secondary" gutterBottom>{lecturer.email}</Typography>
+      <Typography 
+        sx={{
+          textOverflow: 'ellipsis', 
+          overflow: 'hidden', 
+          whiteSpace: 'nowrap',
+          maxWidth: '350px',
+        }}
+        variant="h5"
+      >
+        {lecturer.firstName + " " + lecturer.lastName}
+      </Typography>
+      <Typography 
+        sx={{
+          textOverflow: 'ellipsis',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          maxWidth: '350px', 
+          fontSize: "14"
+        }} 
+        color="text.secondary"
+        gutterBottom
+      >
+        {lecturer.email}
+      </Typography>
     </Box>
   </CardContent>
   {isDashboard ? null : (

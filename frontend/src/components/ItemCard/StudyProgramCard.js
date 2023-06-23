@@ -11,10 +11,11 @@ const StudyProgramCard = ({ studyProgram, handleOpen, handleDelete }) => {
       sx={{ 
         minHeight: "150px", 
         display: 'flex', 
-        flexDirection: 'column' 
+        flexDirection: 'column', 
+        backgroundColor: theme.palette.secondary.main
       }}
     >
-    <CardContent sx={{ flexGrow: 1 }}>
+    <CardContent sx={{ flexGrow: 1, backgroundColor: theme.palette.secondary.main}}>
       <Box>
         <Typography 
           sx={{ 
@@ -45,7 +46,8 @@ const StudyProgramCard = ({ studyProgram, handleOpen, handleDelete }) => {
       sx={{
          display: 'flex', 
          justifyContent: 'flex-end', 
-         marginBottom: '1rem' 
+         marginBottom: '1rem',
+         backgroundColor: theme.palette.secondary.main
          }}
     >
       <IconButton style={{ color: '#B31312' }} aria-label="delete" onClick={() => handleDelete(studyProgram.id)}>

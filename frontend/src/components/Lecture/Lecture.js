@@ -137,7 +137,7 @@ const Lecture = () => {
     if (lecture != null) {
       setLectureId(lecture.id); // Set lectureId when editing
       setLectureName(lecture.lectureName);
-      setModuleName(lecture.moduleName);
+      setModuleName(lecture.modulName);
       setDuration(lecture.duration);
       setTitle("Vorlesung ändern")
     } else {

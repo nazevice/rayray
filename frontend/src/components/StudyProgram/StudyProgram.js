@@ -40,6 +40,9 @@ const StudyProgram = () => {
 
   useEffect(() => {
     fetchData('http://localhost:9090/studyprograms', setStudyPrograms);
+    fetchData('http://localhost:9090/studyclasses', setStudyClasses);
+    fetchData('http://localhost:9090/lectures', setLectures);
+    fetchData('http://localhost:9090/lecturers', setLecturers);
   }, [refreshKey]);
 
   const fetchData = async (url, setData) => {

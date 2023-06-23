@@ -18,12 +18,12 @@ const Content = () => {
                         >
                             Simples Dashboard
                         </Typography>
-                        <Typography sx={{color: theme.palette.custom.fontMain}}>
-                            Als Dozent können sie sich die Details über die angebotenen
-                            Vorlesungen einsehen und geplanten Vorlesungen einsehen.
+                        <Typography sx={{color: theme.palette.custom.fontMain, marginBottom: "16px"}}>
+                            Als Dozent können sie über das Dashboard sich die Details über die angebotenen
+                            Vorlesungen einsehen und ihre geplanten Vorlesungen anschauen.
                         </Typography>
                     </Box>
-                    <Button sx={{color: theme.palette.custom.fontSecondary}} variant="contained">Jetzt beginnen</Button>
+                    <Button href="http://localhost:3000/dashboard" sx={{color: theme.palette.custom.fontSecondary}} variant="contained">Jetzt beginnen</Button>
                 </Box>
             </Grid>
             <Grid item xs={6}>
