@@ -39,7 +39,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Router>
-        <Box sx={{ backgroundColor: "primary.light", display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Box sx={{ backgroundColor: "primary.light", display: 'flex', flexDirection: 'column', minHeight: '100vh', overflowX: "hidden" }}>
           <Header />
           <Box flex="1">
           <Routes>
