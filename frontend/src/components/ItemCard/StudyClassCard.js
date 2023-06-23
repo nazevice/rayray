@@ -10,7 +10,6 @@ const StudyClassCard = ({studyClass, handleDelete, handleOpen}) => {
     <Card 
       sx={{ 
         backgroundColor: theme.palette.secondary.main, 
-        maxWidth: "350px", 
         minHeight: "150px", 
         display: 'flex', 
         flexDirection: 'column',
