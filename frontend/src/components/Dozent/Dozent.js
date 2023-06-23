@@ -129,7 +129,7 @@ const Dozent = () => {
       } else {
         // Handle errors
         console.error('Error submitting data:', response);
-        setSnackPack((prev) => [...prev, { message: 'Fehler beim Verarbeiten der Daten!', severity: 'error' }]);
+        setSnackPack((prev) => [...prev, { message: 'E-Mail-Adresse exisitert bereits!', severity: 'error' }]);
       }
     });
   };
@@ -219,7 +219,7 @@ const Dozent = () => {
                   key={item.id}
                   lecturer={item}
                   handleOpen={handleOpen}
-                  handleDelete={handleDelete}  // add handleDelete prop here
+                  handleDelete={handleDelete}
                 />
               </Grid>
             ))}
